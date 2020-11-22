@@ -1,12 +1,11 @@
 import numpy as np
-import matplotlib.pyplot as plt
 from PIL import Image
 import cv2
 
-val = [255 for i in range(3000000)]
-datain = np.array(val, dtype=np.int8)
-# print(datain)
+data = input('Enter your message:')
+datalist = [ord(i) for i in data]
+val = [150 for i in range(3000000)]
+datain = np.array(val, dtype=np.int64)
 datam = datain.reshape(1000, 1000, 3)
-# print(datam)
 img = Image.fromarray(datam, 'RGB')
 img.show()
