@@ -1,6 +1,5 @@
 import numpy as np
 from PIL import Image
-import cv2
 
 data = input('Enter your message:')
 datalist = [ord(i) for i in data]
