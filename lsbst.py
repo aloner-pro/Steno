@@ -57,7 +57,7 @@ def decode(src):
 
     message = ""
     for i in range(len(hidden_bits)):
-        if message[-5:] == "~$@#OK":
+        if message[-6:] == "~$@#OK":
             break
         else:
             message += chr(int(hidden_bits[i], 2))
