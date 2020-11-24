@@ -40,11 +40,9 @@ def decode(src):
     array = np.array(list(img.getdata()))
 
     if img.mode == 'RGB':
-        n = 3
-        m = 0
+        n, m = 3, 0
     elif img.mode == 'RGBA':
-        n = 4
-        m = 1
+        n, m = 4, 1
 
     total_pixels = array.size//n
 
@@ -86,5 +84,3 @@ def main():
 
 if __name__ == '__main__':
     main()
-
-
