@@ -1,6 +1,6 @@
 # Steno :loop:
 ## Ultimate Stenography software:superhero:
-The do all stenography application.<br>:grin:
+The do all stenography application.:grin:<br>
 **Formats Supported-**
 - Images
 - Audio
