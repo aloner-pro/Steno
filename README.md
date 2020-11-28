@@ -15,8 +15,7 @@ If you are getting confused between _Stenography_ & _Cryptography_. Then see thi
 **If** `you = wms` **then** `Qcaapgrw gq gknmprylr` **= ?**<br>
 _Can you guess the answer?_<br>
 Here we have `key = -2` i.e. if we go 2 alphabets behind `y` you get 
-`w` and similarly if you go 2 alphabets behind `o` we get `m` and  
-similarly 2 alphabets behind `u` gives us `s`. Therefore `you = wms`. <br>
+`w` and similarly if you go 2 alphabets behind `o` we get `m` and similarly 2 alphabets behind `u` gives us `s`. Therefore `you = wms`. <br>
 So now you may have got the answer. So here's the answer `Security is important`
 > Note: The cryptography algorithms are much advanced now.
 #### Stenography
