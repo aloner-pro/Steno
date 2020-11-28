@@ -3,9 +3,9 @@
 The do all stenography application.<br>
 **Formats Supported-**
 +[x] Images
-+[x] Audio
-+[x] Text
-+[ ] ~~Video~~ _To be supported in future version_
+-[x] Audio
+-[x] Text
+-[ ] ~~Video~~ _To be supported in future version_
 >This is an important application especially in today's world.<br>
 > We need hide the messages rather than only encrypting them.
 ---
