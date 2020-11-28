@@ -1,5 +1,5 @@
-# Steno
-## Ultimate Stenography software
+# Steno :loop:
+## Ultimate Stenography software:grin:
 The do all stenography application.<br>
 **Formats Supported-**
 - Images
@@ -9,7 +9,7 @@ The do all stenography application.<br>
 >This is an important application especially in today's world.<br>
 > We need hide the messages rather than only encrypting them.
 ---
-### Stenography is not Cryptography !
+### Stenography is not Cryptography ! :confused:
 If you are getting confused between _Stenography_ & _Cryptography_. Then see this -
 #### Cryptography 
 **If** `you = wms` **then** `Qcaapgrw gq gknmprylr` **= ?**<br>
