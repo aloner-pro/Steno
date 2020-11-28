@@ -2,7 +2,7 @@
 ## Ultimate Stenography software
 The do all stenography application.<br>
 **Formats Supported-**
-+[x] Images
+-[x] Images
 -[x] Audio
 -[x] Text
 -[ ] ~~Video~~ _To be supported in future version_
