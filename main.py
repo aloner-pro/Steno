@@ -1,4 +1,5 @@
 import os
+import time
 from tkinter import *
 import sten.text as txt
 import sten.hover as ho
@@ -14,7 +15,7 @@ root.geometry('400x300')
 
 
 def text_steno(event=None):
-    global img
+    global img, img2
     win = Toplevel(master=root)
     win.title('Text Steno')
     win.geometry('480x400')
@@ -25,7 +26,7 @@ def text_steno(event=None):
     size_label.place(x=5, y=45)
 
     def encode():
-        global img, choice_button
+        global img, img2, choice_button
         outfile_loc, m_or_f = '', ''
 
         m.showinfo("Procedure", "You will be asked to select\na file in which the data\nwill be hidden.")
@@ -50,7 +51,7 @@ def text_steno(event=None):
         password.focus()
 
         def choice():
-            global img, choice_button
+            global img, img2, choice_button
             if select.get() == "1":
                 message = Toplevel(master=win)
                 message.title('Enter Message')
@@ -93,16 +94,21 @@ def text_steno(event=None):
         def process():
             if password["state"] == ACTIVE or password['state'] == NORMAL:
                 if password["show"] == '*':
-                    password.config(show=None)
+                    password.config(show="")
+                    pass_button.config(image=img2)
+                elif password["show"] == "":
+                    password.config(show='*')
+                    pass_button.config(image=img)
 
         pass_label = Label(win, text='Set password:', font=('Cascadia Code', 10), bg='#c0ed98', fg='#1046b3')
         pass_label.place(x=10, y=155)
 
         img = PhotoImage(file="images/noshow.png").subsample(4, 4)
+        img2 = PhotoImage(file="images/show.png").subsample(4, 4)
         pass_button = Button(win, image=img, relief='ridge', bg='#36f5eb',
                              command=process, font=('Cascadia Code', 10))
         pass_button.place(x=195, y=180)
-        ho.CreateToolTip(pass_button, 'Show password')
+        ho.CreateToolTip(pass_button, 'Show/ Hide password')
         success = Label(win, text='', bg='#c0ed98', font=('Cascadia Code', 10), fg='red')
         success.place(x=20, y=280)
 
@@ -113,11 +119,17 @@ def text_steno(event=None):
             outfile_loc = asksaveasfilename(title='Save your encoded file as', filetypes=[('Text File', '.txt')],
                                             defaultextension='.txt', initialdir=os.getcwd(), parent=win)
             if select.get() == '1':
-                txt.encode(passwd=password.get(), infile=infile_loc, outfile=outfile_loc, message=m_or_f)
-                success.config(text='Successfully encoded message in\n{}'.format(outfile_loc))
+                if password.get() != '' and infile_loc != '' and outfile_loc != '' and m_or_f != '':
+                    txt.encode(passwd=password.get(), infile=infile_loc, outfile=outfile_loc, message=m_or_f)
+                    success.config(text='Successfully encoded message in\n{}'.format(outfile_loc))
+                else:
+                    m.showerror('ERROR', 'Something went wrong\ntry again.')
             elif select.get() == '2':
-                txt.encode(passwd=password.get(), infile=infile_loc, outfile=outfile_loc, file=m_or_f)
-                success.config(text='Successfully encoded file {} in\n{}'.format(m_or_f, outfile_loc))
+                if password.get() != '' and infile_loc != '' and outfile_loc != '' and m_or_f != '':
+                    txt.encode(passwd=password.get(), infile=infile_loc, outfile=outfile_loc, file=m_or_f)
+                    success.config(text='Successfully encoded file {} in\n{}'.format(m_or_f, outfile_loc))
+                else:
+                    m.showerror('ERROR', 'Something went wrong\ntry again.')
 
         main = Button(win, text='Hide Data', command=execute, bg='#eba823', relief='ridge', font=('Cascadia Code', 10))
         main.place(x=20, y=250)
@@ -128,7 +140,7 @@ def text_steno(event=None):
                 choice_button.config(state=NORMAL)
 
         refresh = Button(win, text='Refresh', command=refresh, state=DISABLED, relief='ridge',
-                         font=('Cascadia Code', 10), bg='#4159f2')
+                         font=('Cascadia Code', 10), bg='#fca903')
         refresh.place(x=360, y=360)
         ho.CreateToolTip(refresh, 'Refreshes Page')
 
