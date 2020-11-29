@@ -14,6 +14,7 @@ root.geometry('400x300')
 
 
 def text_steno(event=None):
+    global img
     win = Toplevel(master=root)
     win.title('Text Steno')
     win.geometry('480x400')
@@ -21,18 +22,19 @@ def text_steno(event=None):
     win_label = Label(win, text='Text -Stenography', font=('Cascadia Code', 20), bg='#c0ed98', fg='#1046b3')
     win_label.place(x=5, y=4)
     size_label = Label(win, text='', font=('Cascadia Code', 10), bg='#c0ed98', fg='#f20713')
-    size_label.place(x=5, y=55)
+    size_label.place(x=5, y=45)
 
     def encode():
+        global img
         outfile_loc, m_or_f = '', ''
 
         m.showinfo("Procedure", "You will be asked to select\na file in which the data\nwill be hidden.")
         infile_loc = askopenfilename(parent=win, initialdir=os.getcwd(), title='Select File to ENCODE',
                                      filetypes=[('Text files', '.txt')], defaultextension='.txt')
-        size_label.configure(text='The chosen file is {}'.format(infile_loc))
+        size_label.configure(text='Your data will be hidden inside the contents of -\n{}'.format(infile_loc))
 
         ch_lb = Label(win, text='Select what you want to hide', bg='#c0ed98', fg='#1046b3', font=('Cascadia Code', 10))
-        ch_lb.place(x=5, y=75)
+        ch_lb.place(x=5, y=85)
         select = StringVar(win)
         style = ttk.Style(master=win)
         style.configure('C.TRadiobutton', font=('Cascadia Code', 10), background='#c0ed98', foreground='#1046b3')
@@ -48,11 +50,14 @@ def text_steno(event=None):
         password.focus()
 
         def choice():
+            global img, choice_button
             if select.get() == "1":
                 message = Toplevel(master=win)
                 message.title('Enter Message')
                 lm = Label(message, text='Enter your message that you want to hide:', bg='yellow',
-                           font=('Cascadia Code', 10)).pack(side=TOP, fill=BOTH)
+                           font=('Cascadia Code', 10))
+                lm.pack(side=TOP, fill=BOTH)
+                ho.CreateToolTip(lm, 'The message that you\nenter here will be encoded\nin your chosen file.')
                 t = Text(message)
                 t.config(font=('Cascadia Code', 10))
                 t.pack()
@@ -63,11 +68,13 @@ def text_steno(event=None):
                     message.withdraw()
                     m_or_f = t.get("1.0", "end-1c")
 
-                bm = Button(message, text='Enter(Alt-x)', command=click, relief='flat', bg='yellow',
+                bm = Button(message, text='Done(Alt-x)', command=click, relief='flat', bg='yellow',
                             font=('Cascadia Code', 10))
                 bm.pack(side=BOTTOM, fill=BOTH)
                 ho.CreateToolTip(bm, 'This accepts the\nmessage you entered\nand encodes it.')
                 message.bind('<Alt-x>', click)
+                choice_button.config(state=DISABLED)
+                refresh.config(state=NORMAL)
 
             elif select.get() == "2":
                 global m_or_f
@@ -75,22 +82,26 @@ def text_steno(event=None):
                 m_or_f = askopenfilename(parent=win, initialdir=os.getcwd(), title='Select File',
                                          filetypes=[('Text files', '.txt')], defaultextension='.txt')
                 password.config(state=NORMAL)
+                choice_button.config(state=DISABLED)
+                refresh.config(state=NORMAL)
 
-        choice_button = Button(win, text='Select', command=choice,
-                               font=('Cascadia Code', 10), relief='ridge', bg='#08d0fc')
+        choice_button = Button(win, text='Select', command=choice, bg='#08d0fc',
+                               font=('Cascadia Code', 10), relief='ridge')
         choice_button.place(x=152, y=122)
+        ho.CreateToolTip(choice_button, 'Opens a promt according\nto your chosen option.')
 
         def process():
-            pass
+            print(password["show"])
 
         pass_label = Label(win, text='Set password:', font=('Cascadia Code', 10), bg='#c0ed98', fg='#1046b3')
         pass_label.place(x=10, y=155)
-        photo = PhotoImage(file=r"D:\snwdos32\noshow.png")
-        photo_image = photo.subsample(1, 1)
-        pass_button = Button(win, text='OK', image=photo_image,
-                             command=process, font=('Cascadia Code', 10))  # , bg='#5ae80e', relief='ridge'
-        pass_button.place(x=195, y=180)
 
+        img = PhotoImage(file="images/noshow.png").subsample(4, 4)
+        pass_button = Button(win, image=img, relief='ridge', bg='#36f5eb',
+                             command=process, font=('Cascadia Code', 10)) 
+        pass_button.place(x=195, y=180)
+        ho.CreateToolTip(pass_button, 'Show password')
+        
         def execute(event=None):
             global outfile_loc, m_or_f
             m.showinfo('Procedure', 'Where would you like the encoded file to be saved?\n'
@@ -104,17 +115,26 @@ def text_steno(event=None):
 
         main = Button(win, text='Hide Data', command=execute, bg='#eba823', relief='ridge', font=('Cascadia Code', 10))
         main.place(x=20, y=250)
+        ho.CreateToolTip(main, 'Checks everything\nthen encodes the data')
+
+        def re():
+            if choice_button['state'] == DISABLED:
+                choice_button.config(state=NORMAL)
+    
+        refresh = Button(win, text='Refresh', command=re, state=DISABLED, relief='ridge',
+                     font=('Cascadia Code', 10), bg='#4159f2')
+        refresh.place(x=360, y=360)
+        ho.CreateToolTip(refresh, 'Refreshes Page')
 
     def decode():
         pass
 
     encoding = Button(win, text='Encode data', command=encode, relief='ridge', font=('Cascadia Code', 10), bg='#f00c58')
     encoding.place(x=40, y=360)
-    ho.CreateToolTip(encoding, 'Encodes your\n data in a\ntext file.')
+    ho.CreateToolTip(encoding, 'Encoding data function')
     decoding = Button(win, text="Decode data", command=decode, relief='ridge', font=('Cascadia Code', 10), bg='#6b0cf0')
     decoding.place(x=180, y=360)
-    ho.CreateToolTip(decoding, "Decodes the data if it's\npresent in the file")
-
+    ho.CreateToolTip(decoding, "Decoding data function")
 
 def image_steno(event=None):
     pass
