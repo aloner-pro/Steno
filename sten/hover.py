@@ -1,4 +1,11 @@
 from tkinter import *
+"""
+This module helps us to have a hovering effect on any
+widget in tkinter. It helps in giving the user info about
+the widget. Especially used to hover over buttons and giving 
+info about their usage.
+link - https://cutt.ly/fhzdiqy
+"""
 
 
 class ToolTip(object):
@@ -10,7 +17,7 @@ class ToolTip(object):
         self.x = self.y = 0
 
     def showtip(self, text):
-        "Display text in tooltip window"
+        """Display text in tooltip window"""
         self.text = text
         if self.tipwindow or not self.text:
             return
@@ -33,6 +40,7 @@ class ToolTip(object):
 
 
 def CreateToolTip(widget, text):
+    """Main function which is called in programs"""
     toolTip = ToolTip(widget)
 
     def enter(event):
