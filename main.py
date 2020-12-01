@@ -13,6 +13,7 @@ root = Tk()
 root.title('Steno')
 root.config(bg='#f5f59a')
 
+# centering the main window
 root_h, root_w = 300, 400
 s_w = root.winfo_screenwidth()
 s_h = root.winfo_screenheight()
@@ -22,6 +23,7 @@ root.geometry("{}x{}+{}+{}".format(root_w, root_h, x_coor, y_coor))
 
 root.resizable(False, False)
 cas = ('Cascadia Code', 10)
+cas_big = ('Cascadia Code', 20)
 img = PhotoImage(file="images/noshow.png").subsample(4, 4)
 img2 = PhotoImage(file="images/show.png").subsample(4, 4)
 
@@ -31,7 +33,7 @@ def text_steno():
     win.title('Text Steno')
     win.geometry('480x400')
     win.config(bg='#c0ed98')
-    win_label = Label(win, text='Text -Stenography', font=('Cascadia Code', 20), bg='#c0ed98', fg='#1046b3')
+    win_label = Label(win, text='Text -Stenography', font=cas_big, bg='#c0ed98', fg='#1046b3')
     win_label.place(x=5, y=4)
 
     def encode():
@@ -164,11 +166,11 @@ def text_steno():
         ho.CreateToolTip(refresh, 'Refreshes Page')
 
     def decode():
-        dec = Toplevel(master=root)
+        dec = Toplevel(master=win)
         dec.title('Text Steno-DECODE')
         dec.geometry('480x250')
         dec.config(bg='#c0ed98')
-        dec_label = Label(dec, text='Text -Stenography[DECODE]', font=('Cascadia Code', 20), bg='#c0ed98', fg='#1046b3')
+        dec_label = Label(dec, text='Text -Stenography[DECODE]', font=cas_big, bg='#c0ed98', fg='#1046b3')
         dec_label.place(x=5, y=4)
         info_label = Label(dec, text='Chosen File:', font=cas, bg='#c0ed98', fg='#f20713')
         info_label.place(x=5, y=60)
@@ -247,11 +249,10 @@ def image_steno():
 
 
 def audio_steno():
-    aud_win = Toplevel(master=root)
+    aud_win = Toplevel(master=root, bg='#c3f0fa')
     aud_win.title('Audio Steno')
     aud_win.geometry('515x260')
-    aud_win.config(bg='#c3f0fa')
-    au_lb = Label(aud_win, text='Audio -Stenography', bg='#c3f0fa', fg='#fa05bd', font=('Cascadia Code', 20))
+    au_lb = Label(aud_win, text='Audio -Stenography', bg='#c3f0fa', fg='#fa05bd', font=cas_big)
     au_lb.place(x=10, y=10)
 
     def em_aud():
@@ -272,6 +273,7 @@ def audio_steno():
 
         se_bu = Button(aud_win, text='Browse', bg='#8ed925', font=cas, command=browse, relief='ridge')
         se_bu.place(x=450, y=70)
+        ho.CreateToolTip(se_bu, 'Browse thorough &\nselect the file')
 
         def pan():
             global mess
@@ -297,31 +299,66 @@ def audio_steno():
 
         b = Button(aud_win, command=pan, text='Enter Message', font=cas, bg='#94f748')
         b.place(x=10, y=100)
+        ho.CreateToolTip(b, 'Opens a prompt where you can enter message')
         success = Label(aud_win, bg='#c3f0fa', font=cas)
         success.place(x=10, y=170)
 
         def done():
             global file, mess
-            m.showinfo('Procedure', 'Where would you like the encoded file to be saved?\n'
+            m.showinfo('Procedure', 'Where would you like the embedded file to be saved?\n'
                                     'Select the path in the next window.')
             out = asksaveasfilename(title='Save your embedded file as', filetypes=[('Audio File', '.wav')],
                                     defaultextension='.wav', initialdir=os.getcwd(), parent=aud_win)
-            if mess != '' and file != '' and file_au.get() != '':
+            if mess != '' and file != '' and file_au.get() != '' and out != '':
                 try:
                     aud.embed(infile=file, message=mess, outfile=out)
-                    success.config(text='Successfully embedded in\n{}'.format(out))
+                    success.config(text='Successfully embedded message in\n{}'.format(out))
                 except FileNotFoundError:
                     aud.embed(infile=file_au.get(), message=mess, outfile=out)
-                    success.config(text='Successfully embedded in\n{}'.format(out))
+                    success.config(text='Successfully embedded message in\n{}'.format(out))
             else:
                 m.showerror('ERROR', 'Something went wrong try again')
 
         main_bu = Button(aud_win, text='Embed Message', bg='#f79205', font=cas, command=done)
         main_bu.place(x=10, y=130)
+        ho.CreateToolTip(main_bu, 'Checks everything and embeds your data')
 
     def ex_aud():
-        # TODO complete extracting func
-        pass
+        global ex_file
+        ex_win = Toplevel(aud_win, bg='#c3f0fa')
+        ex_win.title('Audio Steno-EXTRACT')
+        ex_win.geometry('515x290')
+        ex_lb = Label(ex_win, text='Audio -Stenography[EXTRACT]', bg='#c3f0fa', fg='#fa05bd', font=cas_big)
+        ex_lb.place(x=10, y=10)
+        file_lb = Label(ex_win, text='Select File:', font=cas, bg='#c3f0fa', fg='#fa0505')
+        file_lb.place(x=5, y=50)
+        file_ex = Entry(ex_win, width=55, font=cas, relief='ridge')
+        file_ex.place(x=7, y=75)
+        file_ex.focus()
+
+        def browse():
+            global ex_file
+            ex_file = askopenfilename(parent=ex_win, initialdir=os.getcwd(), title='Select File to EMBED',
+                                      filetypes=[('Audio files', '.wav')], defaultextension='.wav')
+            file_ex.delete(0, END)
+            file_ex.insert(0, ex_file)
+            file_lb.config(text='Selected File:')
+
+        se_bu = Button(ex_win, text='Browse', bg='#8ed925', font=cas, command=browse, relief='ridge')
+        se_bu.place(x=450, y=70)
+        ho.CreateToolTip(se_bu, 'Browse thorough &\nselect the file')
+
+        def extract_data():
+            dat = aud.extract(ex_file)
+            suc_lb = Label(ex_win, text='Hidden message is:', font=cas, fg='#f50c81', bg='#c3f0fa').place(x=6, y=130)
+            sh = st.ScrolledText(ex_win, width=60, height=7, font=cas)
+            sh.place(x=8, y=155)
+            sh.insert(INSERT, dat)
+            sh.config(state=DISABLED)
+
+        ex_bu = Button(ex_win, text='Extract Message', bg='#f79205', font=cas, command=extract_data)
+        ex_bu.place(x=10, y=100)
+        ho.CreateToolTip(ex_bu, 'Extracts the hidden \ndata & displays it')
 
     bu_en = Button(aud_win, text='Embed', font=cas, bg='#05ff82', fg='#0569ff', command=em_aud)
     bu_en.place(x=70, y=220)
