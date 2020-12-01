@@ -1,8 +1,15 @@
 import os
 import subprocess
+__author__ = "Sohel Ahmed"
+'''
+Module text.py for performing text stenography using SNOW
+link - http://darkside.com.au/snow/   -- here you will get to 
+about SNOW and also download it.
+'''
 
 
 def size(file: str):
+
     cmd = subprocess.Popen(['snow', '-S', file], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     stdout, stderr = cmd.communicate()
     return str(stdout, 'utf-8').split()[-2]
@@ -21,4 +28,3 @@ def decode(passwd: str, file: str):
     cmd = subprocess.Popen(['snow', '-C', '-p', passwd, file], stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
     stdout, stderr = cmd.communicate()
     return str(stdout, 'utf-8')
-
