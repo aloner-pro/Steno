@@ -5,8 +5,8 @@ __author__ = "Sohel Ahmed"
 '''
 Module text.py for performing text stenography using SNOW
 link - http://darkside.com.au/snow/   -- here you will get to 
-about SNOW and also download it. This mainly hides your data
-inside spaces and tabs. Also it encrypts your data.
+know about SNOW and also download it. This mainly hides your
+ data inside spaces and tabs & also encrypts it.
 '''
 
 
