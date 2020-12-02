@@ -102,7 +102,7 @@ def text_steno():
                     password.config(state=NORMAL)
                     password.focus()
 
-                bm = Button(message, text='Done(Ctrl-b)', command=click, relief='flat', bg='yellow', font=cas)
+                bm = Button(message, text='Done(Ctrl+b)', command=click, relief='flat', bg='yellow', font=cas)
                 bm.pack(side=BOTTOM, fill=BOTH)
                 ho.CreateToolTip(bm, 'This accepts the\nmessage you entered\nand encodes it.')
                 message.bind('<Control-b>', click)
@@ -328,7 +328,7 @@ def audio_steno():
                 message.withdraw()
                 mess = t.get("1.0", "end-1c")
 
-            bm = Button(message, text='Done(Ctrl-b)', command=click, relief='flat', bg='yellow', font=cas)
+            bm = Button(message, text='Done(Ctrl+b)', command=click, relief='flat', bg='yellow', font=cas)
             bm.pack(side=BOTTOM, fill=BOTH)
             ho.CreateToolTip(bm, 'This accepts the\nmessage you entered\nand encodes it.')
             message.bind('<Control-b>', click)
