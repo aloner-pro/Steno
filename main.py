@@ -8,7 +8,7 @@ from tkinter.filedialog import askopenfilename, asksaveasfilename
 import sten.hover as ho
 import sten.text as txt
 import sten.audio as aud
-
+# TODO add database management systems[important]
 root = Tk()
 root.title('Steno')
 root.config(bg='#f5f59a')
@@ -22,34 +22,45 @@ y_coor = int((s_h / 2) - (root_h / 2))
 root.geometry("{}x{}+{}+{}".format(root_w, root_h, x_coor, y_coor))
 
 root.resizable(False, False)
+# defining the fonts used and images
 cas = ('Cascadia Code', 10)
 cas_big = ('Cascadia Code', 20)
 img = PhotoImage(file="images/noshow.png").subsample(4, 4)
 img2 = PhotoImage(file="images/show.png").subsample(4, 4)
+# TODO add documentation
 
 
 def text_steno():
-    win = Toplevel(master=root)
+    """The text stenography function this includes both encoding and decoding"""
+    win = Toplevel(master=root, bg='#c0ed98')
     win.title('Text Steno')
-    win.geometry('480x400')
-    win.config(bg='#c0ed98')
+    win.geometry('480x410')
     win_label = Label(win, text='Text -Stenography', font=cas_big, bg='#c0ed98', fg='#1046b3')
     win_label.place(x=5, y=4)
 
     def encode():
-        global choice_button
+        """encoding function for text files"""
+        global choice_button, infile_loc
         outfile_loc, m_or_f = '', ''
 
-        size_label = Label(win, text='', font=cas, bg='#c0ed98', fg='#f20713')
+        size_label = Label(win, text='Select File:', font=cas, bg='#c0ed98', fg='#f20713')
         size_label.place(x=5, y=45)
-        es = Entry(win, width=55, font=cas)
+        es = Entry(win, width=50, font=cas)
         es.place(x=7, y=65)
 
-        m.showinfo("Procedure", "You will be asked to select\na file in which the data\nwill be hidden.")
-        infile_loc = askopenfilename(parent=win, initialdir=os.getcwd(), title='Select File to ENCODE',
-                                     filetypes=[('Text files', '.txt')], defaultextension='.txt')
-        size_label.configure(text='Your data will be hidden inside-'.format(infile_loc))
-        es.insert(0, infile_loc)
+        def browse():
+            """Opens a prompt for selecting files"""
+            global infile_loc
+            infile_loc = askopenfilename(parent=win, initialdir=os.getcwd(), title='Select File to DECODE',
+                                         filetypes=[('Text files', '.txt')], defaultextension='.txt')
+            es.delete(0, END)
+            es.insert(0, infile_loc)
+            size_label.config(text='Selected File:')
+
+        se_bu = Button(win, text='Browse', bg='#8ed925', font=cas, command=browse, relief='ridge')
+        se_bu.place(x=411, y=61)
+        ho.CreateToolTip(se_bu, 'Browse thorough &\nselect the file')
+
         # TODO add a widget where user will be able to see contents of their chosen file
 
         ch_lb = Label(win, text='Select what you want to hide', bg='#c0ed98', fg='#1046b3', font=cas)
@@ -58,9 +69,8 @@ def text_steno():
         style = ttk.Style(master=win)
         style.configure('C.TRadiobutton', font=cas, background='#c0ed98', foreground='#1046b3')
 
-        choice_message = ttk.Radiobutton(win, text='Hide a Message', value="1", variable=select,
-                                         style='C.TRadiobutton')
-        choice_message.place(x=5, y=105)
+        message_ch = ttk.Radiobutton(win, text='Hide a Message', value="1", variable=select, style='C.TRadiobutton')
+        message_ch.place(x=5, y=105)
 
         choice_file = ttk.Radiobutton(win, text='Hide a File', value="2", variable=select, style='C.TRadiobutton')
         choice_file.place(x=5, y=130)
@@ -69,8 +79,10 @@ def text_steno():
         password.place(x=10, y=185)
 
         def choice():
+            """Here the user's choice is evaluated & accordingly work is done"""
             global choice_button
             if select.get() == "1":
+                """If the user chooses to enter a message a text prompt is opened"""
                 message = Toplevel(master=win)
                 message.title('Enter Message')
                 message.resizable(False, False)
@@ -82,10 +94,12 @@ def text_steno():
                 t.pack()
 
                 def click(event=None):
+                    """Here we collect whatever message the user entered"""
                     global m_or_f
-                    password.config(state=NORMAL)
                     message.withdraw()
                     m_or_f = t.get("1.0", "end-1c")
+                    # after getting message we allow the user to enter password
+                    password.config(state=NORMAL)
                     password.focus()
 
                 bm = Button(message, text='Done(Ctrl-b)', command=click, relief='flat', bg='yellow', font=cas)
@@ -96,20 +110,22 @@ def text_steno():
                 refresh.config(state=NORMAL)
 
             elif select.get() == "2":
+                """If user chooses to encode a file then select file prompt opens up"""
                 global m_or_f
                 m.showinfo('Procedure', 'Select the file which contains\nthe data you want to encode.')
                 m_or_f = askopenfilename(parent=win, initialdir=os.getcwd(), title='Select File',
                                          filetypes=[('Text files', '.txt')], defaultextension='.txt')
-                password.config(state=NORMAL)
                 choice_button.config(state=DISABLED)
                 refresh.config(state=NORMAL)
+                password.config(state=NORMAL)
                 password.focus()
 
         choice_button = Button(win, text='Select', command=choice, bg='#08d0fc', font=cas, relief='ridge')
         choice_button.place(x=152, y=122)
-        ho.CreateToolTip(choice_button, 'Opens a promt according\nto your chosen option.')
+        ho.CreateToolTip(choice_button, 'Opens a prompt according\nto your chosen option.')
 
         def process():
+            """Here the password's eyes show & hide functions are carried out"""
             if password["state"] == ACTIVE or password['state'] == NORMAL:
                 if password["show"] == '*':
                     password.config(show="")
@@ -128,6 +144,7 @@ def text_steno():
         success.place(x=20, y=280)
 
         def execute():
+            """Main function which checks the requirements and encodes data accordingly"""
             global outfile_loc, m_or_f
             m.showinfo('Procedure', 'Where would you like the encoded file to be saved?\n'
                                     'Select the path in the next window.')
@@ -158,6 +175,7 @@ def text_steno():
         # TODO show contents of file after encoding[optional]
 
         def refresh():
+            """If the user wants to again choose the options"""
             if choice_button['state'] == DISABLED:
                 choice_button.config(state=NORMAL)
 
@@ -166,21 +184,31 @@ def text_steno():
         ho.CreateToolTip(refresh, 'Refreshes Page')
 
     def decode():
-        dec = Toplevel(master=win)
+        """Decoding function for text files"""
+        global file_loc
+        dec = Toplevel(master=root, bg='#c0ed98')
         dec.title('Text Steno-DECODE')
         dec.geometry('480x250')
-        dec.config(bg='#c0ed98')
         dec_label = Label(dec, text='Text -Stenography[DECODE]', font=cas_big, bg='#c0ed98', fg='#1046b3')
         dec_label.place(x=5, y=4)
-        info_label = Label(dec, text='Chosen File:', font=cas, bg='#c0ed98', fg='#f20713')
+        info_label = Label(dec, text='Select File:', font=cas, bg='#c0ed98', fg='#f20713')
         info_label.place(x=5, y=60)
-        m.showinfo("Procedure", "You will be asked to select\na file which contains hidden data.")
-
-        file_loc = askopenfilename(parent=dec, initialdir=os.getcwd(), title='Select File to ENCODE',
-                                   filetypes=[('Text files', '.txt')], defaultextension='.txt')
-        file_ent = Entry(master=dec, width=55, font=cas)
+        file_ent = Entry(master=dec, width=50, font=cas)
         file_ent.place(x=7, y=85)
-        file_ent.insert(0, file_loc)
+
+        def browse():
+            """Opens a prompt for selecting files"""
+            global file_loc
+            file_loc = askopenfilename(parent=dec, initialdir=os.getcwd(), title='Select File to DECODE',
+                                       filetypes=[('Text files', '.txt')], defaultextension='.txt')
+            file_ent.delete(0, END)
+            file_ent.insert(0, file_loc)
+            info_label.config(text='Selected File:')
+
+        se_bu = Button(dec, text='Browse', bg='#8ed925', font=cas, command=browse, relief='ridge')
+        se_bu.place(x=410, y=82)
+        ho.CreateToolTip(se_bu, 'Browse thorough &\nselect the file')
+
         pass_lb = Label(dec, text='Enter password:', bg='#c0ed98', fg='#1046b3', font=cas)
         pass_lb.place(x=5, y=110)
         pass_ent = Entry(dec, width=20, font=cas, show='*')
@@ -188,6 +216,7 @@ def text_steno():
         pass_ent.focus()
 
         def show():
+            """Here the password's eyes show & hide functions are carried out"""
             if pass_ent["state"] == ACTIVE or pass_ent['state'] == NORMAL:
                 if pass_ent["show"] == '*':
                     pass_ent.config(show="")
@@ -201,6 +230,7 @@ def text_steno():
         ho.CreateToolTip(pass_bu, 'Show/ Hide password')
 
         def work(event=None):
+            """Here after collecting the requirements decoding is carried out"""
             global data
             try:
                 data = txt.decode(passwd=pass_ent.get(), file=file_ent.get())
@@ -213,6 +243,7 @@ def text_steno():
                 show_lb = Label(text_win, text='The message hidden in the selected file:',
                                 bg='yellow', fg='red', font=cas)
                 show_lb.pack(side=TOP, fill=BOTH)
+                ho.CreateToolTip(show_lb, "Can't understand what's decoded\nthen your password is WRONG")
                 show_text = st.ScrolledText(text_win)
                 show_text.pack()
                 show_text.tag_configure('beauty', font=cas)
@@ -249,6 +280,7 @@ def image_steno():
 
 
 def audio_steno():
+    """Audio stenography functions"""
     aud_win = Toplevel(master=root, bg='#c3f0fa')
     aud_win.title('Audio Steno')
     aud_win.geometry('515x260')
@@ -256,6 +288,7 @@ def audio_steno():
     au_lb.place(x=10, y=10)
 
     def em_aud():
+        """Audio steno's embedding function"""
         global file, mess
         select_lb = Label(aud_win, text='Select File:', font=cas, bg='#c3f0fa', fg='#fa0505')
         select_lb.place(x=5, y=50)
@@ -264,6 +297,7 @@ def audio_steno():
         file_au.focus()
 
         def browse():
+            """Opens a prompt for selecting files"""
             global file
             file = askopenfilename(parent=aud_win, initialdir=os.getcwd(), title='Select File to EMBED',
                                    filetypes=[('Audio files', '.wav')], defaultextension='.wav')
@@ -276,6 +310,7 @@ def audio_steno():
         ho.CreateToolTip(se_bu, 'Browse thorough &\nselect the file')
 
         def pan():
+            """Opens message prompt to enter message"""
             global mess
             message = Toplevel(aud_win)
             message.title('Enter Message')
@@ -288,6 +323,7 @@ def audio_steno():
             t.pack()
 
             def click(event=None):
+                """Collects the message entered by user"""
                 global mess
                 message.withdraw()
                 mess = t.get("1.0", "end-1c")
@@ -304,6 +340,7 @@ def audio_steno():
         success.place(x=10, y=170)
 
         def done():
+            """Main function which asks for saving file location and then embeds the data in audio file"""
             global file, mess
             m.showinfo('Procedure', 'Where would you like the embedded file to be saved?\n'
                                     'Select the path in the next window.')
@@ -324,10 +361,11 @@ def audio_steno():
         ho.CreateToolTip(main_bu, 'Checks everything and embeds your data')
 
     def ex_aud():
+        """Data extracting function of audio steno"""
         global ex_file
-        ex_win = Toplevel(aud_win, bg='#c3f0fa')
+        ex_win = Toplevel(root, bg='#c3f0fa')
         ex_win.title('Audio Steno-EXTRACT')
-        ex_win.geometry('515x290')
+        ex_win.geometry('515x310')
         ex_lb = Label(ex_win, text='Audio -Stenography[EXTRACT]', bg='#c3f0fa', fg='#fa05bd', font=cas_big)
         ex_lb.place(x=10, y=10)
         file_lb = Label(ex_win, text='Select File:', font=cas, bg='#c3f0fa', fg='#fa0505')
@@ -337,6 +375,7 @@ def audio_steno():
         file_ex.focus()
 
         def browse():
+            """Opens a prompt for selecting files"""
             global ex_file
             ex_file = askopenfilename(parent=ex_win, initialdir=os.getcwd(), title='Select File to EMBED',
                                       filetypes=[('Audio files', '.wav')], defaultextension='.wav')
@@ -348,7 +387,8 @@ def audio_steno():
         se_bu.place(x=450, y=70)
         ho.CreateToolTip(se_bu, 'Browse thorough &\nselect the file')
 
-        def extract_data():
+        def extract_data(event=None):
+            """Extracts data from the audio file and shows it in a text box"""
             dat = aud.extract(ex_file)
             suc_lb = Label(ex_win, text='Hidden message is:', font=cas, fg='#f50c81', bg='#c3f0fa').place(x=6, y=130)
             sh = st.ScrolledText(ex_win, width=60, height=7, font=cas)
@@ -359,6 +399,11 @@ def audio_steno():
         ex_bu = Button(ex_win, text='Extract Message', bg='#f79205', font=cas, command=extract_data)
         ex_bu.place(x=10, y=100)
         ho.CreateToolTip(ex_bu, 'Extracts the hidden \ndata & displays it')
+        ex_win.bind('<Return>', extract_data)
+
+        qu_bu = Button(ex_win, text='Exit', font=cas, bg='#f23f3f', fg='#e1f719', command=ex_win.destroy)
+        qu_bu.place(x=467, y=278)
+        ho.CreateToolTip(qu_bu, 'Exits window')
 
     bu_en = Button(aud_win, text='Embed', font=cas, bg='#05ff82', fg='#0569ff', command=em_aud)
     bu_en.place(x=70, y=220)
@@ -366,6 +411,9 @@ def audio_steno():
     bu_ex = Button(aud_win, text='Extract', font=cas, bg='#acff05', fg='#fa029b', command=ex_aud)
     bu_ex.place(x=260, y=220)
     ho.CreateToolTip(bu_ex, 'Extracts data from audio file')
+    qubu = Button(aud_win, text='Exit', font=cas, bg='#f23f3f', fg='#e1f719', command=aud_win.destroy)
+    qubu.place(x=410, y=220)
+    ho.CreateToolTip(qubu, 'Exits window')
 
 
 lb = Label(root, text="Steno\n- Ultimate Stenography", font=('Showcard Gothic', 20), bg='#f5f59a', fg='#8507fa')
