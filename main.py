@@ -5,13 +5,16 @@ from tkinter import messagebox as m
 from tkinter import ttk
 from tkinter.filedialog import askopenfilename, asksaveasfilename
 
-import sten.hover as ho
-import sten.text as txt
-import sten.audio as aud
+import steno.hover as ho
+import steno.text as txt
+import steno.audio as aud
+import steno.database as db
+
 # TODO add database management systems[important]
 root = Tk()
 root.title('Steno')
 root.config(bg='#f5f59a')
+root.resizable(False, False)
 
 # centering the main window
 root_h, root_w = 300, 400
@@ -21,12 +24,12 @@ x_coor = int((s_w / 2) - (root_w / 2))
 y_coor = int((s_h / 2) - (root_h / 2))
 root.geometry("{}x{}+{}+{}".format(root_w, root_h, x_coor, y_coor))
 
-root.resizable(False, False)
 # defining the fonts used and images
 cas = ('Cascadia Code', 10)
 cas_big = ('Cascadia Code', 20)
 img = PhotoImage(file="images/noshow.png").subsample(4, 4)
 img2 = PhotoImage(file="images/show.png").subsample(4, 4)
+img3 = PhotoImage(file="tests/dots.png").subsample(4, 4)
 # TODO add documentation
 
 
@@ -409,11 +412,15 @@ def audio_steno():
     bu_en.place(x=70, y=220)
     ho.CreateToolTip(bu_en, 'Embeds data in audio file')
     bu_ex = Button(aud_win, text='Extract', font=cas, bg='#acff05', fg='#fa029b', command=ex_aud)
-    bu_ex.place(x=260, y=220)
+    bu_ex.place(x=230, y=220)
     ho.CreateToolTip(bu_ex, 'Extracts data from audio file')
     qubu = Button(aud_win, text='Exit', font=cas, bg='#f23f3f', fg='#e1f719', command=aud_win.destroy)
     qubu.place(x=410, y=220)
     ho.CreateToolTip(qubu, 'Exits window')
+
+
+def password():
+    pass
 
 
 lb = Label(root, text="Steno\n- Ultimate Stenography", font=('Showcard Gothic', 20), bg='#f5f59a', fg='#8507fa')
@@ -430,5 +437,8 @@ ho.CreateToolTip(image, 'Click here\nto hide your\ndata in an image file')
 audio = Button(root, text='Audio\nStenography', relief='flat', bg='#A68064', command=audio_steno, font=cas)
 audio.place(x=256, y=250)
 ho.CreateToolTip(audio, 'Click here\nto hide data in\n an audio file.')
+
+uni = Button(root, image=img3, relief='flat', bg='#f5f59a', command=password)
+uni.place(x=378, y=0)
 
 root.mainloop()
