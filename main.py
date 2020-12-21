@@ -29,7 +29,7 @@ cas = ('Cascadia Code', 10)
 cas_big = ('Cascadia Code', 20)
 img = PhotoImage(file="images/noshow.png").subsample(4, 4)
 img2 = PhotoImage(file="images/show.png").subsample(4, 4)
-img3 = PhotoImage(file="tests/dots.png").subsample(4, 4)
+img3 = PhotoImage(file="images/dots.png").subsample(3, 3)
 # TODO add documentation
 
 
@@ -439,6 +439,6 @@ audio.place(x=256, y=250)
 ho.CreateToolTip(audio, 'Click here\nto hide data in\n an audio file.')
 
 uni = Button(root, image=img3, relief='flat', bg='#f5f59a', command=password)
-uni.place(x=378, y=0)
+uni.place(x=370, y=0)
 
 root.mainloop()
