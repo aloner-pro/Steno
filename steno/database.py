@@ -12,9 +12,6 @@ def check():
     pass
 
 
-# cursor.execute('create table universal (username text, passwd text)')
-# cursor.execute("insert into universal values('Sohel Ahmed', 'sohel')")
-# connect.commit()
 dt = cursor.execute('select * from universal').fetchall()
 print(dt)
 connect.close()
