@@ -5,8 +5,8 @@ connect = db.connect('data.db')
 cursor = connect.cursor()
 
 
-def new(name: str, username: str, passwd: str):
-    cursor.execute("INSERT INTO initial(NAME, USERNAME, PASSWORD, DATE) VALUES ({0}, {1}, {2}, {})".format(name, username, passwd, date.today()))
+def new(name: str, user: str, passwd: str):
+    cursor.execute("insert into initial values (?, ?, ?, ?)", (name, user, passwd, date.today()))
     connect.commit()
 
 

@@ -434,11 +434,12 @@ def password():
     ps_pass_entry = Entry(ps, width=30, font=cas, show='*')
     ps_pass_entry.place(x=100, y=150)
 
-    def ok_done():
+    def ok_done(event=None):
         db.new(ps_name_entry.get(), ps_username_entry.get(), ps_pass_entry.get())
 
     ps_button = Button(ps, text='Done', font=cas, command=ok_done, fg='#e08f1d')
     ps_button.place(x=350, y=250)
+    ps.bind('<Return>', ok_done)
 
 
 lb = Label(root, text="Steno\n- Ultimate Stenography", font=('Showcard Gothic', 20), bg='#f5f59a', fg='#8507fa')
