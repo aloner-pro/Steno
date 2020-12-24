@@ -420,7 +420,25 @@ def audio_steno():
 
 
 def password():
-    pass
+    ps = Toplevel(root, bg='#88b1f2')
+    ps.geometry('400x300+800+200')
+    ps_lb = Label(ps, text='User Login[backup]', font=cas_big, bg='#88b1f2', fg='#5c1841')
+    ps_lb.place(x=5, y=5)
+    ps_name_lb = Label(ps, text='Enter name:', bg='#88b1f2', fg='#5c1841', font=cas).place(x=5, y=50)
+    ps_name_entry = Entry(ps, width=30, font=cas)
+    ps_name_entry.place(x=100, y=50)
+    ps_username_lb = Label(ps, text='Enter\nusername:', bg='#88b1f2', fg='#5c1841', font=cas).place(x=9, y=80)
+    ps_username_entry = Entry(ps, width=30, font=cas)
+    ps_username_entry.place(x=100, y=100)
+    ps_pass = Label(ps, text='Enter\npassword:', bg='#88b1f2', fg='#5c1841', font=cas).place(x=9, y=130)
+    ps_pass_entry = Entry(ps, width=30, font=cas, show='*')
+    ps_pass_entry.place(x=100, y=150)
+
+    def ok_done():
+        db.new(ps_name_entry.get(), ps_username_entry.get(), ps_pass_entry.get())
+
+    ps_button = Button(ps, text='Done', font=cas, command=ok_done, fg='#e08f1d')
+    ps_button.place(x=350, y=250)
 
 
 lb = Label(root, text="Steno\n- Ultimate Stenography", font=('Showcard Gothic', 20), bg='#f5f59a', fg='#8507fa')
@@ -442,3 +460,4 @@ uni = Button(root, image=img3, relief='flat', bg='#f5f59a', command=password)
 uni.place(x=370, y=0)
 
 root.mainloop()
+db.close()
