@@ -431,7 +431,7 @@ def password():
     ps_username_entry = Entry(ps, width=30, font=cas)
     ps_username_entry.place(x=100, y=100)
     ps_pass = Label(ps, text='Enter\npassword:', bg='#88b1f2', fg='#5c1841', font=cas).place(x=9, y=130)
-    ps_pass_entry = Entry(ps, width=30, font=cas, show='*')
+    ps_pass_entry = Entry(ps, width=25, font=cas, show='*')
     ps_pass_entry.place(x=100, y=150)
 
     def ok_done(event=None):
@@ -439,6 +439,20 @@ def password():
 
     ps_button = Button(ps, text='Done', font=cas, command=ok_done, fg='#e08f1d')
     ps_button.place(x=350, y=250)
+
+    def show():
+        """Here the password's eyes show & hide functions are carried out"""
+        if ps_pass_entry["show"] == '*':
+            ps_pass_entry.config(show="")
+            pass_bu.config(image=img2)
+        elif ps_pass_entry["show"] == "":
+            ps_pass_entry.config(show='*')
+            pass_bu.config(image=img)
+
+    pass_bu = Button(ps, image=img, command=show, bg='#36f5eb', relief='ridge')
+    pass_bu.place(x=310, y=140)
+    ho.CreateToolTip(pass_bu, 'Show/ Hide password')
+    ho.CreateToolTip(ps_button, 'Sets up your admin account')
     ps.bind('<Return>', ok_done)
 
 
