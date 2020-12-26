@@ -2,8 +2,7 @@
 # Encode data into image
 def encode():
     img = input("Enter image name(with extension) : ")
-    image = Image.open(img, 'r')
- 
+    image=Image.open(img, 'r')
     data = input("Enter data to be encoded : ")
     if (len(data) == 0):
         raise ValueError('Data is empty')
@@ -42,13 +41,13 @@ def decode():
  
 # Main Function
 def main():
-    a = int(input(":: Welcome to Steganography ::\n"
+    a = int(input(":: Welcome to Stenography ::\n"
                         "1. Encode\n2. Decode\n"))
     if (a == 1):
         encode()
  
     elif (a == 2):
-        print("Decoded Word :  " + decode())
+        print("Decoded output :  " + decode())
     else:
         raise Exception("Enter correct input")
  
