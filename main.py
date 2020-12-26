@@ -332,7 +332,7 @@ def image_steno():
         b = Button(img_win, command=pan, text='Enter Message', font=cas, bg='#94f748')
         b.place(x=10, y=100)
         ho.CreateToolTip(b, 'Opens a prompt where you can enter message')
-        success = Label(aud_win, bg='#c3f0fa', font=cas)
+        success = Label(img_win, bg='#c3f0fa', font=cas)
         success.place(x=10, y=170)
 
         def done():
