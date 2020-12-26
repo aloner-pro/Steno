@@ -8,6 +8,7 @@ from tkinter.filedialog import askopenfilename, asksaveasfilename
 import sten.hover as ho
 import sten.text as txt
 import sten.audio as aud
+import sten.image as img
 # TODO add database management systems[important]
 root = Tk()
 root.title('Steno')
