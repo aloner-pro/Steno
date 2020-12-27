@@ -9,6 +9,7 @@ import steno.hover as ho
 import steno.text as txt
 import steno.audio as aud
 import steno.database as db
+import steno.image as image_
 
 # TODO add database management systems[important]
 root = Tk()
@@ -30,6 +31,8 @@ cas_big = ('Cascadia Code', 20)
 img = PhotoImage(file="images/noshow.png").subsample(4, 4)
 img2 = PhotoImage(file="images/show.png").subsample(4, 4)
 img3 = PhotoImage(file="images/dots.png").subsample(3, 3)
+
+
 # TODO add documentation
 
 
@@ -278,8 +281,141 @@ def text_steno():
 
 
 def image_steno():
-    # TODO complete image related stenography func
-    pass
+    """Image stenography function"""
+    img_win = Toplevel(master=root, bg='#c3f0fa')
+    img_win.title('Image steno')
+    img_win.geometry('515x260')
+    im_lb = Label(img_win, text='Image -Stenography', bg='#c3f0fa', fg='#fa05bd', font=cas_big)
+    im_lb.place(x=10, y=10)
+
+    def em_img():
+        """Image stenography functions"""
+        global file, mess
+        select_lb = Label(img_win, text='Select File:', font=cas, bg='#c3f0fa', fg='#fa05bd')
+        select_lb.place(x=5, y=50)
+        file_im = Entry(img_win, width=55, font=cas, relief='ridge')
+        file_im.place(x=7, y=75)
+        file_im.place(x=7, y=75)
+        file_im.focus()
+
+        def browse():
+            """Opens a prompt for selecting files"""
+            global file
+            file = askopenfilename(parent=img_win, initialdir=os.getcwd(), title='Select File to EMBED',
+                                   filetypes=[('Image files', '.png')], defaultextension='.png')
+            file_im.delete(0, END)
+            file_im.insert(0, file)
+            select_lb.config(text='Selected File:')
+
+        se_bu = Button(img_win, text='Browse', bg='#8ed925', font=cas, command=browse, relief='ridge')
+        se_bu.place(x=450, y=70)
+        ho.CreateToolTip(se_bu, 'Browse thorough &\nselect the file')
+
+        def pan():
+            """Opens message prompt to enter message"""
+            global mess
+            message = Toplevel(img_win)
+            message.title('Enter Message')
+            message.resizable(False, False)
+            lm = Label(message, text='Enter your message that you want to hide:', bg='yellow', font=cas)
+            lm.pack(side=TOP, fill=BOTH)
+            ho.CreateToolTip(lm, 'The message that you\nenter here will be encoded\nin your chosen file.')
+            t = st.ScrolledText(message)
+            t.config(font=cas)
+            t.pack()
+
+            def click(event=None):
+                """Collects the message entered by user"""
+                global mess
+                message.withdraw()
+                mess = t.get("1.0", "end-1c")
+
+            bm = Button(message, text='Done(Ctrl+b)', command=click, relief='flat', bg='yellow', font=cas)
+            bm.pack(side=BOTTOM, fill=BOTH)
+            ho.CreateToolTip(bm, 'This accepts the\nmessage you entered\nand encodes it.')
+            message.bind('<Control-b>', click)
+
+        b = Button(img_win, command=pan, text='Enter Message', font=cas, bg='#94f748')
+        b.place(x=10, y=100)
+        ho.CreateToolTip(b, 'Opens a prompt where you can enter message')
+        success = Label(img_win, bg='#c3f0fa', font=cas)
+        success.place(x=10, y=170)
+
+        def done():
+            """Main function which asks for saving file location and then embeds the data in image file"""
+            global file, mess
+            m.showinfo('Procedure', 'Where would you like the embedded file to be saved?\n'
+                                    'Select the path in the next window.')
+            out = asksaveasfilename(title='Save your embedded file as', filetypes=[('Image files', '.png')],
+                                    defaultextension='.png', initialdir=os.getcwd(), parent=img_win)
+            if mess != '' and file != '' and file_im.get() != '' and out != '':
+                try:
+                    image_.encrypt_image(img_path=file, message=mess, new_path=out)
+                    success.config(text='Successfully embedded message in\n{}'.format(out))
+                except FileNotFoundError:
+                    image_.encrypt_image(img_path=file_im.get(), message=mess, new_path=out)
+                    success.config(text='Successfully embedded message in\n{}'.format(out))
+            else:
+                m.showerror('ERROR', 'Something went wrong try again')
+
+        main_bu = Button(img_win, text='Embed Message', bg='#f79205', font=cas, command=done)
+        main_bu.place(x=10, y=130)
+        ho.CreateToolTip(main_bu, 'Checks everything and embeds your data')
+
+    def ex_img():
+        """Data extracting function of audio steno"""
+        global ex_file
+        ex_win = Toplevel(root, bg='#c3f0fa')
+        ex_win.title('Image Steno-EXTRACT')
+        ex_win.geometry('515x310')
+        ex_lb = Label(ex_win, text='Image -Stenography[EXTRACT]', bg='#c3f0fa', fg='#fa05bd', font=cas_big)
+        ex_lb.place(x=10, y=10)
+        file_lb = Label(ex_win, text='Select File:', font=cas, bg='#c3f0fa', fg='#fa0505')
+        file_lb.place(x=5, y=50)
+        file_ex = Entry(ex_win, width=55, font=cas, relief='ridge')
+        file_ex.place(x=7, y=75)
+        file_ex.focus()
+
+        def browse():
+            """Opens a prompt for selecting files"""
+            global ex_file
+            ex_file = askopenfilename(parent=ex_win, initialdir=os.getcwd(), title='Select File to EMBED',
+                                      filetypes=[('Image files', '.png')], defaultextension='.png')
+            file_ex.delete(0, END)
+            file_ex.insert(0, ex_file)
+            file_lb.config(text='Selected File:')
+
+        se_bu = Button(ex_win, text='Browse', bg='#8ed925', font=cas, command=browse, relief='ridge')
+        se_bu.place(x=450, y=70)
+        ho.CreateToolTip(se_bu, 'Browse thorough &\nselect the file')
+
+        def extract_data(event=None):
+            """Extracts data from the audio file and shows it in a text box"""
+            dat = image_.decrypt_image(img_path=ex_file)
+            suc_lb = Label(ex_win, text='Hidden message is:', font=cas, fg='#f50c81', bg='#c3f0fa').place(x=6, y=130)
+            sh = st.ScrolledText(ex_win, width=60, height=7, font=cas)
+            sh.place(x=8, y=155)
+            sh.insert(INSERT, dat)
+            sh.config(state=DISABLED)
+
+        ex_bu = Button(ex_win, text='Extract Message', bg='#f79205', font=cas, command=extract_data)
+        ex_bu.place(x=10, y=100)
+        ho.CreateToolTip(ex_bu, 'Extracts the hidden \ndata & displays it')
+        ex_win.bind('<Return>', extract_data)
+
+        qu_bu = Button(ex_win, text='Exit', font=cas, bg='#f23f3f', fg='#e1f719', command=ex_win.destroy)
+        qu_bu.place(x=467, y=278)
+        ho.CreateToolTip(qu_bu, 'Exits window')
+
+    bu_en = Button(img_win, text='Embed', font=cas, bg='#05ff82', fg='#0569ff', command=em_img)
+    bu_en.place(x=70, y=220)
+    ho.CreateToolTip(bu_en, 'Embeds data in image file')
+    bu_ex = Button(img_win, text='Extract', font=cas, bg='#acff05', fg='#fa029b', command=ex_img)
+    bu_ex.place(x=260, y=220)
+    ho.CreateToolTip(bu_ex, 'Extracts data from image file')
+    qubu = Button(img_win, text='Exit', font=cas, bg='#f23f3f', fg='#e1f719', command=img_win.destroy)
+    qubu.place(x=410, y=220)
+    ho.CreateToolTip(qubu, 'Exits window')
 
 
 def audio_steno():
@@ -473,6 +609,7 @@ ho.CreateToolTip(audio, 'Click here\nto hide data in\n an audio file.')
 
 uni = Button(root, image=img3, relief='flat', bg='#f5f59a', command=password)
 uni.place(x=370, y=0)
+ho.CreateToolTip(uni, 'Here you can create\nadmin account to\nretrive forgotten passwords later.')
 
 root.mainloop()
 db.close()
