@@ -282,16 +282,16 @@ def text_steno():
 
 def image_steno():
     """Image stenography function"""
-    img_win = Toplevel(master=root, bg='#c3f0fa')
+    img_win = Toplevel(master=root, bg='#edaa82')
     img_win.title('Image steno')
     img_win.geometry('515x260')
-    im_lb = Label(img_win, text='Image -Stenography', bg='#c3f0fa', fg='#fa05bd', font=cas_big)
+    im_lb = Label(img_win, text='Image -Stenography', bg='#edaa82', fg='#fa05bd', font=cas_big)
     im_lb.place(x=10, y=10)
 
     def em_img():
         """Image stenography functions"""
         global file, mess
-        select_lb = Label(img_win, text='Select File:', font=cas, bg='#c3f0fa', fg='#fa05bd')
+        select_lb = Label(img_win, text='Select File:', font=cas, bg='#edaa82', fg='#fa05bd')
         select_lb.place(x=5, y=50)
         file_im = Entry(img_win, width=55, font=cas, relief='ridge')
         file_im.place(x=7, y=75)
@@ -338,7 +338,7 @@ def image_steno():
         b = Button(img_win, command=pan, text='Enter Message', font=cas, bg='#94f748')
         b.place(x=10, y=100)
         ho.CreateToolTip(b, 'Opens a prompt where you can enter message')
-        success = Label(img_win, bg='#c3f0fa', font=cas)
+        success = Label(img_win, bg='#edaa82', font=cas)
         success.place(x=10, y=170)
 
         def done():
@@ -365,12 +365,12 @@ def image_steno():
     def ex_img():
         """Data extracting function of audio steno"""
         global ex_file
-        ex_win = Toplevel(root, bg='#c3f0fa')
+        ex_win = Toplevel(root, bg='#edaa82')
         ex_win.title('Image Steno-EXTRACT')
         ex_win.geometry('515x310')
-        ex_lb = Label(ex_win, text='Image -Stenography[EXTRACT]', bg='#c3f0fa', fg='#fa05bd', font=cas_big)
+        ex_lb = Label(ex_win, text='Image -Stenography[EXTRACT]', bg='#edaa82', fg='#fa05bd', font=cas_big)
         ex_lb.place(x=10, y=10)
-        file_lb = Label(ex_win, text='Select File:', font=cas, bg='#c3f0fa', fg='#fa0505')
+        file_lb = Label(ex_win, text='Select File:', font=cas, bg='#edaa82', fg='#fa0505')
         file_lb.place(x=5, y=50)
         file_ex = Entry(ex_win, width=55, font=cas, relief='ridge')
         file_ex.place(x=7, y=75)
@@ -392,7 +392,7 @@ def image_steno():
         def extract_data(event=None):
             """Extracts data from the audio file and shows it in a text box"""
             dat = image_.decrypt_image(img_path=ex_file)
-            suc_lb = Label(ex_win, text='Hidden message is:', font=cas, fg='#f50c81', bg='#c3f0fa').place(x=6, y=130)
+            suc_lb = Label(ex_win, text='Hidden message is:', font=cas, fg='#f50c81', bg='#edaa82').place(x=6, y=130)
             sh = st.ScrolledText(ex_win, width=60, height=7, font=cas)
             sh.place(x=8, y=155)
             sh.insert(INSERT, dat)
