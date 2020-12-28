@@ -1,7 +1,7 @@
 .idea
 tests
-steno/__pycache__/__init__.cpython-39.pyc: needs merge
-steno/__pycache__/audio.cpython-39.pyc: needs merge
-steno/__pycache__/hover.cpython-39.pyc: needs merge
-steno/__pycache__/image.cpython-39.pyc: needs merge
-steno/__pycache__/text.cpython-39.pyc: needs merge
+steno/__pycache__/__init__.cpython-39.pyc
+steno/__pycache__/audio.cpython-39.pyc
+steno/__pycache__/hover.cpython-39.pyc
+steno/__pycache__/image.cpython-39.pyc
+steno/__pycache__/text.cpython-39.pyc
