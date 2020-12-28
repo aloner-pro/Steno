@@ -1,6 +1,7 @@
 # these modules come with standard python installation
 import os
 import subprocess
+from steno import database as db
 __author__ = "Sohel Ahmed"
 '''
 Module text.py for performing text stenography using SNOW
@@ -23,10 +24,12 @@ def encode(passwd: str, infile: str, outfile: str, file: str = None, message: st
         """If the data is a message it encodes it inside the contents of infile and saves it in outfile"""
         command = 'snow -C -Q -p "{}" -m "{}" {} {}'.format(passwd, message, infile, outfile)
         os.system('cmd /c' + command)
+        db.format_txt(outfile, passwd)
     elif file is not None:
         """If the data is a file it encodes it in infile and saves it as outfile"""
         command = 'snow -C -Q -p "{}" -f {} {} {}'.format(passwd, file, infile, outfile)
         os.system('cmd /c' + command)
+        db.format_txt(outfile, passwd)
 
 
 def decode(passwd: str, file: str):

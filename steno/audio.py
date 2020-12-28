@@ -1,5 +1,6 @@
 # this module comes with standard python installation
 import wave
+from steno import database as db
 """
 *<[only supports wave files]>*
 This module helps us in performing audio stenography
@@ -30,6 +31,7 @@ def embed(infile: str, message: str, outfile: str):
         fd.setparams(song.getparams())
         fd.writeframes(frame_modified)
     song.close()
+    db.format_oth('aud', outfile)
 
 
 def extract(file: str):

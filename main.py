@@ -11,7 +11,6 @@ import steno.audio as aud
 import steno.database as db
 import steno.image as image_
 
-# TODO add database management systems[important]
 root = Tk()
 root.title('Steno')
 root.config(bg='#f5f59a')
@@ -31,8 +30,6 @@ cas_big = ('Cascadia Code', 20)
 img = PhotoImage(file="images/noshow.png").subsample(4, 4)
 img2 = PhotoImage(file="images/show.png").subsample(4, 4)
 img3 = PhotoImage(file="images/dots.png").subsample(3, 3)
-
-
 # TODO add documentation
 
 
@@ -81,8 +78,8 @@ def text_steno():
         choice_file = ttk.Radiobutton(win, text='Hide a File', value="2", variable=select, style='C.TRadiobutton')
         choice_file.place(x=5, y=130)
 
-        password = Entry(win, width=20, show='*', font=cas, state=DISABLED)
-        password.place(x=10, y=185)
+        password_ = Entry(win, width=20, show='*', font=cas, state=DISABLED)
+        password_.place(x=10, y=185)
 
         def choice():
             """Here the user's choice is evaluated & accordingly work is done"""
@@ -105,8 +102,8 @@ def text_steno():
                     message.withdraw()
                     m_or_f = t.get("1.0", "end-1c")
                     # after getting message we allow the user to enter password
-                    password.config(state=NORMAL)
-                    password.focus()
+                    password_.config(state=NORMAL)
+                    password_.focus()
 
                 bm = Button(message, text='Done(Ctrl+b)', command=click, relief='flat', bg='yellow', font=cas)
                 bm.pack(side=BOTTOM, fill=BOTH)
@@ -123,8 +120,8 @@ def text_steno():
                                          filetypes=[('Text files', '.txt')], defaultextension='.txt')
                 choice_button.config(state=DISABLED)
                 refresh.config(state=NORMAL)
-                password.config(state=NORMAL)
-                password.focus()
+                password_.config(state=NORMAL)
+                password_.focus()
 
         choice_button = Button(win, text='Select', command=choice, bg='#08d0fc', font=cas, relief='ridge')
         choice_button.place(x=152, y=122)
@@ -132,12 +129,12 @@ def text_steno():
 
         def process():
             """Here the password's eyes show & hide functions are carried out"""
-            if password["state"] == ACTIVE or password['state'] == NORMAL:
-                if password["show"] == '*':
-                    password.config(show="")
+            if password_["state"] == ACTIVE or password_['state'] == NORMAL:
+                if password_["show"] == '*':
+                    password_.config(show="")
                     pass_button.config(image=img2)
-                elif password["show"] == "":
-                    password.config(show='*')
+                elif password_["show"] == "":
+                    password_.config(show='*')
                     pass_button.config(image=img)
 
         pass_label = Label(win, text='Set password:', font=cas, bg='#c0ed98', fg='#1046b3')
@@ -156,20 +153,20 @@ def text_steno():
                                     'Select the path in the next window.')
             outfile_loc = asksaveasfilename(title='Save your encoded file as', filetypes=[('Text File', '.txt')],
                                             defaultextension='.txt', initialdir=os.getcwd(), parent=win)
-            if password.get() != '' and infile_loc != '' and outfile_loc != '' and m_or_f != '' and es.get() != '':
+            if password_.get() != '' and infile_loc != '' and outfile_loc != '' and m_or_f != '' and es.get() != '':
                 if select.get() == '1':
                     try:
-                        txt.encode(passwd=password.get(), infile=es.get(), outfile=outfile_loc, message=m_or_f)
+                        txt.encode(passwd=password_.get(), infile=es.get(), outfile=outfile_loc, message=m_or_f)
                         success.config(text='Successfully encoded message in\n{}'.format(outfile_loc))
                     except FileNotFoundError:
-                        txt.encode(passwd=password.get(), infile=infile_loc, outfile=outfile_loc, message=m_or_f)
+                        txt.encode(passwd=password_.get(), infile=infile_loc, outfile=outfile_loc, message=m_or_f)
                         success.config(text='Successfully encoded message in\n{}'.format(outfile_loc))
                 elif select.get() == '2':
                     try:
-                        txt.encode(passwd=password.get(), infile=es.get(), outfile=outfile_loc, file=m_or_f)
+                        txt.encode(passwd=password_.get(), infile=es.get(), outfile=outfile_loc, file=m_or_f)
                         success.config(text='Successfully encoded file\n{} in\n{}'.format(m_or_f, outfile_loc))
                     except FileNotFoundError:
-                        txt.encode(passwd=password.get(), infile=infile_loc, outfile=outfile_loc, file=m_or_f)
+                        txt.encode(passwd=password_.get(), infile=infile_loc, outfile=outfile_loc, file=m_or_f)
                         success.config(text='Successfully encoded file\n{} in\n{}'.format(m_or_f, outfile_loc))
             else:
                 m.showerror('ERROR', 'Something went wrong\ntry again.')
@@ -260,9 +257,16 @@ def text_steno():
                 show_bu.pack(side=BOTTOM, fill=BOTH)
                 ho.CreateToolTip(show_bu, 'Closes the window')
 
+        def forgotten():
+            foo = Toplevel(dec, bg='#93ed87')
+            foo.title('Forgot Password')
+            foo.geometry('300x300')
+
         decode_main = Button(dec, text='Decode', relief='ridge', bg='#00fc69', font=cas, command=work)
         decode_main.place(x=10, y=190)
         ho.CreateToolTip(decode_main, 'Checks the requirements then\nshows the decoded data.')
+        forgot = Button(dec, text='Forgot Password', relief='ridge', bg='#fa8a20', font=cas, command=forgotten)
+        forgot.place(x=150, y=200)
         exit_dec = Button(dec, text='Exit', bg='#eb3131', font=cas, relief='ridge',
                           command=dec.destroy)
         exit_dec.place(x=360, y=200)
@@ -609,7 +613,7 @@ ho.CreateToolTip(audio, 'Click here\nto hide data in\n an audio file.')
 
 uni = Button(root, image=img3, relief='flat', bg='#f5f59a', command=password)
 uni.place(x=370, y=0)
-ho.CreateToolTip(uni, 'Here you can create\nadmin account to\nretrive forgotten passwords later.')
+ho.CreateToolTip(uni, 'Here you can create\nadmin account to\nretrieve forgotten passwords later.')
 
 root.mainloop()
 db.close()
