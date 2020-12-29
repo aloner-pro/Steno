@@ -270,10 +270,10 @@ def text_steno():
             uname_ent = Entry(foo, font=cas, width=20)
             uname_ent.place(x=180, y=50)
             pwd_lb = Label(foo, text='Enter Admin Password:', bg='#93ed87', fg='#214a22', font=cas).place(x=5, y=80)
-            pwd_ent = Entry(foo, font=cas, width=20)
+            pwd_ent = Entry(foo, font=cas, width=20, show='*')
             pwd_ent.place(x=180, y=80)
             file2 = Label(foo, text='Enter file Path:', bg='#93ed87', fg='#214a22', font=cas).place(x=5, y=110)
-            file_new = Entry(foo, font=cas, width=45)
+            file_new = Entry(foo, font=cas, width=51)
             file_new.place(x=5, y=140)
 
             def browse_txt():
@@ -287,14 +287,28 @@ def text_steno():
             def check(event=None):
                 dt = db.main_work(uname_ent.get(), pwd_ent.get(), path)
                 if len(dt) < 2:
-                    show_label.config(text=dt[0])
+                    show_label.config(text=dt[0], font=cas_big)
                 else:
                     dt1, dt2 = dt
                     state = 'Hi {} the password for the\nchosen file is:- {}'.format(dt1, dt2[0])
                     show_label.config(text=state, font=cas)
 
+            def show_txt():
+                """Here the password's eyes show & hide functions are carried out"""
+                if pwd_ent["state"] == ACTIVE or pwd_ent['state'] == NORMAL:
+                    if pwd_ent["show"] == '*':
+                        pwd_ent.config(show="")
+                        pass_bu2.config(image=img2)
+                    elif pwd_ent["show"] == "":
+                        pwd_ent.config(show='*')
+                        pass_bu2.config(image=img)
+
+            pass_bu2 = Button(foo, image=img, command=show_txt, bg='#36f5eb', relief='ridge')
+            pass_bu2.place(x=350, y=70)
+            ho.CreateToolTip(pass_bu, 'Show/ Hide password')
+
             fo_br = Button(foo, text='Browse', font=cas, fg='#f53a1d', command=browse_txt, relief='flat', bg='#ffcc9c')
-            fo_br.place(x=360, y=135)
+            fo_br.place(x=354, y=161)
             ho.CreateToolTip(fo_br, 'Browse & select files')
             check2 = Button(foo, text='Check & Retrieve', font=cas, bg='#47f5a7', fg='#2200fc', command=check)
             check2.place(x=25, y=200)
