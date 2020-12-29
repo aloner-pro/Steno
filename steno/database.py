@@ -19,9 +19,7 @@ def format_txt(file: str, passwd: str):
 
 
 def format_oth(types: str, file: str):
-    st = "insert into user('FORMAT', 'TIME_STAMP', 'FILE_PATH', 'OS_RAM') VALUES(?, ?, ?, ?)", (
-        types, date.today(), file, info)
-    cursor.execute(st)
+    cursor.execute("insert into user('FORMAT', 'TIME_STAMP', 'FILE_PATH', 'OS_RAM') VALUES(?, ?, ?, ?)", (types, date.today(), file, info))
     connect.commit()
 
 
