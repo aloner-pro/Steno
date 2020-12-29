@@ -43,10 +43,3 @@ def main_work(username: str, passwd: str, file: str):
 
 def close():
     connect.close()
-
-
-dt = cursor.execute('select * from initial').fetchall()
-[print(i) for i in dt]
-print('DB- user')
-dt2 = cursor.execute('select * from user').fetchall()
-[print(k) for k in dt2]
