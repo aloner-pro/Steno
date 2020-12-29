@@ -30,6 +30,8 @@ cas_big = ('Cascadia Code', 20)
 img = PhotoImage(file="images/noshow.png").subsample(4, 4)
 img2 = PhotoImage(file="images/show.png").subsample(4, 4)
 img3 = PhotoImage(file="images/dots.png").subsample(3, 3)
+
+
 # TODO add documentation
 
 
@@ -258,16 +260,56 @@ def text_steno():
                 ho.CreateToolTip(show_bu, 'Closes the window')
 
         def forgotten():
+            global path
             foo = Toplevel(dec, bg='#93ed87')
             foo.title('Forgot Password')
-            foo.geometry('300x300')
+            foo.geometry('420x300')
+            f_lb = Label(foo, text='Forgot Password Recovery', font=cas_big, fg='#214a22', bg='#93ed87')
+            f_lb.place(x=5, y=5)
+            uname_lb = Label(foo, text='Enter Admin username:', bg='#93ed87', fg='#214a22', font=cas).place(x=5, y=50)
+            uname_ent = Entry(foo, font=cas, width=20)
+            uname_ent.place(x=180, y=50)
+            pwd_lb = Label(foo, text='Enter Admin Password:', bg='#93ed87', fg='#214a22', font=cas).place(x=5, y=80)
+            pwd_ent = Entry(foo, font=cas, width=20)
+            pwd_ent.place(x=180, y=80)
+            file2 = Label(foo, text='Enter file Path:', bg='#93ed87', fg='#214a22', font=cas).place(x=5, y=110)
+            file_new = Entry(foo, font=cas, width=45)
+            file_new.place(x=5, y=140)
+
+            def browse_txt():
+                """Opens a prompt for selecting files"""
+                global path
+                path = askopenfilename(parent=foo, initialdir=os.getcwd(), title='Select File to DECODE',
+                                       filetypes=[('Text files', '.txt')], defaultextension='.txt')
+                file_new.delete(0, END)
+                file_new.insert(0, path)
+
+            def check(event=None):
+                dt = db.main_work(uname_ent.get(), pwd_ent.get(), path)
+                if len(dt) < 2:
+                    show_label.config(text=dt[0])
+                else:
+                    dt1, dt2 = dt
+                    state = 'Hi {} the password for the\nchosen file is:- {}'.format(dt1, dt2[0])
+                    show_label.config(text=state, font=cas)
+
+            fo_br = Button(foo, text='Browse', font=cas, fg='#f53a1d', command=browse_txt, relief='flat', bg='#ffcc9c')
+            fo_br.place(x=360, y=135)
+            ho.CreateToolTip(fo_br, 'Browse & select files')
+            check2 = Button(foo, text='Check & Retrieve', font=cas, bg='#47f5a7', fg='#2200fc', command=check)
+            check2.place(x=25, y=200)
+            ho.CreateToolTip(check2, 'Checks everything & gives password')
+            show_label = Label(foo, text='', bg='#93ed87', fg='#f53a1d', font=cas_big)
+            show_label.place(x=10, y=230)
+            foo.bind('<Return>', check)
 
         decode_main = Button(dec, text='Decode', relief='ridge', bg='#00fc69', font=cas, command=work)
         decode_main.place(x=10, y=190)
         ho.CreateToolTip(decode_main, 'Checks the requirements then\nshows the decoded data.')
         forgot = Button(dec, text='Forgot Password', relief='ridge', bg='#fa8a20', font=cas, command=forgotten)
         forgot.place(x=150, y=200)
-        exit_dec = Button(dec, text='Exit', bg='#eb3131', font=cas, relief='ridge',
+        ho.CreateToolTip(forgot, 'This helps you retrieve\nforgotten if you have admin account.')
+        exit_dec = Button(dec, text='Exit', bg='#f53a1d', font=cas, relief='ridge',
                           command=dec.destroy)
         exit_dec.place(x=360, y=200)
         ho.CreateToolTip(exit_dec, 'Closes the window')
@@ -576,9 +618,12 @@ def password():
 
     def ok_done(event=None):
         db.new(ps_name_entry.get(), ps_username_entry.get(), ps_pass_entry.get())
+        suc_lb.config(text='Done!!')
 
     ps_button = Button(ps, text='Done', font=cas, command=ok_done, fg='#e08f1d')
     ps_button.place(x=350, y=250)
+    suc_lb = Label(ps, text='', font=cas_big, bg='#88b1f2', fg='#5c1841')
+    suc_lb.place(x=150, y=200)
 
     def show():
         """Here the password's eyes show & hide functions are carried out"""

@@ -19,8 +19,26 @@ def format_txt(file: str, passwd: str):
 
 
 def format_oth(types: str, file: str):
-    cursor.execute("insert into user('FORMAT', 'TIME_STAMP', 'FILE_PATH', 'OS_RAM') VALUES(?, ?, ?, ?)", (types, date.today(), file, info))
+    st = "insert into user('FORMAT', 'TIME_STAMP', 'FILE_PATH', 'OS_RAM') VALUES(?, ?, ?, ?)", (
+        types, date.today(), file, info)
+    cursor.execute(st)
     connect.commit()
+
+
+def main_work(username: str, passwd: str, file: str):
+    data = cursor.execute("SELECT NAME,PASSWORD FROM initial WHERE USERNAME=?", (username,)).fetchall()
+    if not data:
+        return 'No Admin Account',
+    else:
+        for i in range(len(data)):
+            if passwd == data[i][1]:
+                data2 = cursor.execute("SELECT PASSWORD FROM user WHERE FILE_PATH=?", (file,)).fetchone()
+                if not data2:
+                    return 'No such file',
+                else:
+                    return data[i][0], data2
+            else:
+                return 'Wrong Password',
 
 
 def close():
