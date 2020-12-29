@@ -15,6 +15,7 @@ root = Tk()
 root.title('Steno')
 root.config(bg='#f5f59a')
 root.resizable(False, False)
+root.wm_iconbitmap('images/l2.ico')
 
 # centering the main window
 root_h, root_w = 300, 400
@@ -30,8 +31,6 @@ cas_big = ('Cascadia Code', 20)
 img = PhotoImage(file="images/noshow.png").subsample(4, 4)
 img2 = PhotoImage(file="images/show.png").subsample(4, 4)
 img3 = PhotoImage(file="images/dots.png").subsample(3, 3)
-
-
 # TODO add documentation
 
 
@@ -40,6 +39,7 @@ def text_steno():
     win = Toplevel(master=root, bg='#c0ed98')
     win.title('Text Steno')
     win.geometry('480x410')
+    win.wm_iconbitmap('images/l2.ico')
     win_label = Label(win, text='Text -Stenography', font=cas_big, bg='#c0ed98', fg='#1046b3')
     win_label.place(x=5, y=4)
 
@@ -91,6 +91,7 @@ def text_steno():
                 message = Toplevel(master=win)
                 message.title('Enter Message')
                 message.resizable(False, False)
+                message.wm_iconbitmap('images/l2.ico')
                 lm = Label(message, text='Enter your message that you want to hide:', bg='yellow', font=cas)
                 lm.pack(side=TOP, fill=BOTH)
                 ho.CreateToolTip(lm, 'The message that you\nenter here will be encoded\nin your chosen file.')
@@ -194,6 +195,7 @@ def text_steno():
         dec = Toplevel(master=root, bg='#c0ed98')
         dec.title('Text Steno-DECODE')
         dec.geometry('480x250')
+        dec.wm_iconbitmap('images/l2.ico')
         dec_label = Label(dec, text='Text -Stenography[DECODE]', font=cas_big, bg='#c0ed98', fg='#1046b3')
         dec_label.place(x=5, y=4)
         info_label = Label(dec, text='Select File:', font=cas, bg='#c0ed98', fg='#f20713')
@@ -245,6 +247,7 @@ def text_steno():
                 text_win = Toplevel(dec)
                 text_win.title('Decoded Message')
                 text_win.resizable(False, False)
+                text_win.wm_iconbitmap('images/l2.ico')
                 show_lb = Label(text_win, text='The message hidden in the selected file:',
                                 bg='yellow', fg='red', font=cas)
                 show_lb.pack(side=TOP, fill=BOTH)
@@ -264,6 +267,7 @@ def text_steno():
             foo = Toplevel(dec, bg='#93ed87')
             foo.title('Forgot Password')
             foo.geometry('420x300')
+            foo.wm_iconbitmap('images/l2.ico')
             f_lb = Label(foo, text='Forgot Password Recovery', font=cas_big, fg='#214a22', bg='#93ed87')
             f_lb.place(x=5, y=5)
             uname_lb = Label(foo, text='Enter Admin username:', bg='#93ed87', fg='#214a22', font=cas).place(x=5, y=50)
@@ -345,6 +349,7 @@ def image_steno():
     img_win = Toplevel(master=root, bg='#edaa82')
     img_win.title('Image steno')
     img_win.geometry('515x260')
+    img_win.wm_iconbitmap('images/l2.ico')
     im_lb = Label(img_win, text='Image -Stenography', bg='#edaa82', fg='#fa05bd', font=cas_big)
     im_lb.place(x=10, y=10)
 
@@ -377,6 +382,7 @@ def image_steno():
             message = Toplevel(img_win)
             message.title('Enter Message')
             message.resizable(False, False)
+            message.wm_iconbitmap('images/l2.ico')
             lm = Label(message, text='Enter your message that you want to hide:', bg='yellow', font=cas)
             lm.pack(side=TOP, fill=BOTH)
             ho.CreateToolTip(lm, 'The message that you\nenter here will be encoded\nin your chosen file.')
@@ -428,6 +434,7 @@ def image_steno():
         ex_win = Toplevel(root, bg='#edaa82')
         ex_win.title('Image Steno-EXTRACT')
         ex_win.geometry('515x310')
+        ex_win.wm_iconbitmap('images/l2.ico')
         ex_lb = Label(ex_win, text='Image -Stenography[EXTRACT]', bg='#edaa82', fg='#fa05bd', font=cas_big)
         ex_lb.place(x=10, y=10)
         file_lb = Label(ex_win, text='Select File:', font=cas, bg='#edaa82', fg='#fa0505')
@@ -483,6 +490,7 @@ def audio_steno():
     aud_win = Toplevel(master=root, bg='#c3f0fa')
     aud_win.title('Audio Steno')
     aud_win.geometry('515x260')
+    aud_win.wm_iconbitmap('images/l2.ico')
     au_lb = Label(aud_win, text='Audio -Stenography', bg='#c3f0fa', fg='#fa05bd', font=cas_big)
     au_lb.place(x=10, y=10)
 
@@ -514,6 +522,7 @@ def audio_steno():
             message = Toplevel(aud_win)
             message.title('Enter Message')
             message.resizable(False, False)
+            message.wm_iconbitmap('images/l2.ico')
             lm = Label(message, text='Enter your message that you want to hide:', bg='yellow', font=cas)
             lm.pack(side=TOP, fill=BOTH)
             ho.CreateToolTip(lm, 'The message that you\nenter here will be encoded\nin your chosen file.')
@@ -565,6 +574,7 @@ def audio_steno():
         ex_win = Toplevel(root, bg='#c3f0fa')
         ex_win.title('Audio Steno-EXTRACT')
         ex_win.geometry('515x310')
+        ex_win.wm_iconbitmap('images/l2.ico')
         ex_lb = Label(ex_win, text='Audio -Stenography[EXTRACT]', bg='#c3f0fa', fg='#fa05bd', font=cas_big)
         ex_lb.place(x=10, y=10)
         file_lb = Label(ex_win, text='Select File:', font=cas, bg='#c3f0fa', fg='#fa0505')
@@ -618,6 +628,7 @@ def audio_steno():
 def password():
     ps = Toplevel(root, bg='#88b1f2')
     ps.geometry('400x300+800+200')
+    ps.wm_iconbitmap('images/l2.ico')
     ps_lb = Label(ps, text='User Login[backup]', font=cas_big, bg='#88b1f2', fg='#5c1841')
     ps_lb.place(x=5, y=5)
     ps_name_lb = Label(ps, text='Enter name:', bg='#88b1f2', fg='#5c1841', font=cas).place(x=5, y=50)
