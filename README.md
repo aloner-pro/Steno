@@ -9,6 +9,25 @@ The do all stenography application.:grin:<br>
 >This is an important application especially in today's world.<br>
 > We need hide the messages rather than only encrypting them.
 ---
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/aloner-pro/Steno.git
+```
+
+Go to the project directory
+
+```bash
+  cd Steno
+```
+
+All modules are standard modules of **batteries included** python.<br>
+Then just use `main.py` having **Cascadia Code** font makes the GUI look best.<br>
+Rest the GUI is quite explanative so hope you don't have any problem using this.
+---
+![homescreen](https://github.com/aloner-pro/Steno/blob/master/images/home_screeen.png?raw=true)
 ### Stenography is not Cryptography ! :confused:
 If you are getting confused between _Stenography_ & _Cryptography_. Then see this -
 #### Cryptography 
@@ -30,19 +49,3 @@ mutually exclusive to each other.
 >Knowledge fact: Jeff Bezos's mobile was hacked by hiding malicious code in a media 
 >file which on getting downloaded sent the host device's control to the hacker. 
 ---
-## Run Locally
-
-Clone the project
-
-```bash
-  git clone https://github.com/aloner-pro/Steno.git
-```
-
-Go to the project directory
-
-```bash
-  cd Steno
-```
-
-All modules are standard modules of **batteries included** python.
-Then just use `main.py` having **Cascadia Code** font makes the GUI look best.
