@@ -30,3 +30,19 @@ mutually exclusive to each other.
 >Knowledge fact: Jeff Bezos's mobile was hacked by hiding malicious code in a media 
 >file which on getting downloaded sent the host device's control to the hacker. 
 ---
+## Run Locally
+
+Clone the project
+
+```bash
+  git clone https://github.com/aloner-pro/Steno.git
+```
+
+Go to the project directory
+
+```bash
+  cd Steno
+```
+
+All modules are standard modules of **batteries included** python.
+Then just use `main.py` having **Cascadia Code** font makes the GUI look best.
