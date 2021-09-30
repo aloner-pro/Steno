@@ -1,4 +1,4 @@
-# this module comes with standard python installation
+# wave module comes with standard python installation
 import wave
 from steno import database as db
 """
