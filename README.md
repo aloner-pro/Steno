@@ -22,7 +22,6 @@ Go to the project directory
 ```bash
   cd Steno
 ```
-
 All modules are standard modules of **batteries included** python.<br>
 Then just use `main.py` having **Cascadia Code** font makes the GUI look best.<br>
 Rest the GUI is quite explanative so hope you don't have any problem using this.
