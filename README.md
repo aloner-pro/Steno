@@ -23,11 +23,11 @@ Go to the project directory
   cd Steno
 ```
 ![homescreen](https://github.com/aloner-pro/Steno/blob/master/images/home_screeen.png?raw=true)
----
-All modules are standard modules of **batteries included** python.
-Then just use `main.py` having **Cascadia Code** font makes the GUI look best.
-Rest the GUI is quite explanative so hope you don't have any problem using this.
----
+### Other Notes
+All modules are standard modules of **battries included** python. Then use the `main.py`. 
+Having `Cascadia Code` font makes the GUI look best. 
+Rest the GUI is quite explanatory so hope you don't have any problem using this. 
+In audio stenography only `.wav` files are supported presently. In images are formats are supported.
 ### Stenography is not Cryptography ! :confused:
 If you are getting confused between _Stenography_ & _Cryptography_. Then see this -
 #### Cryptography 
