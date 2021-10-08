@@ -31,7 +31,6 @@ cas_big = ('Cascadia Code', 20)
 img = PhotoImage(file="images/noshow.png").subsample(4, 4)
 img2 = PhotoImage(file="images/show.png").subsample(4, 4)
 img3 = PhotoImage(file="images/dots.png").subsample(3, 3)
-# TODO add documentation
 
 
 def text_steno():
