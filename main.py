@@ -665,19 +665,19 @@ def password():
     ps.bind('<Return>', ok_done)
 
 
-lb = Label(root, text="Steno\n- Ultimate Steganography", font=('Showcard Gothic', 20), bg='#f5f59a', fg='#8507fa')
+lb = Label(root, text="Steno\nUltimate Steganography", font=('Showcard Gothic', 20), bg='#f5f59a', fg='#8507fa')
 lb.place(x=18, y=20)
 
 text = Button(root, text='Text\nSteganography', relief='flat', bg='#A68064', command=text_steno, font=cas)
-text.place(x=56, y=250)
+text.place(x=35, y=250)
 ho.CreateToolTip(text, 'Click here\nto hide your\ndata in a text file')
 
 image = Button(root, text='Image\nSteganography', relief='flat', bg='#A68064', command=image_steno, font=cas)
-image.place(x=156, y=250)
+image.place(x=145, y=250)
 ho.CreateToolTip(image, 'Click here\nto hide your\ndata in an image file')
 
 audio = Button(root, text='Audio\nSteganography', relief='flat', bg='#A68064', command=audio_steno, font=cas)
-audio.place(x=256, y=250)
+audio.place(x=255, y=250)
 ho.CreateToolTip(audio, 'Click here\nto hide data in\n an audio file.')
 
 uni = Button(root, image=img3, relief='flat', bg='#f5f59a', command=password)
