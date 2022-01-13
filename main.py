@@ -34,12 +34,12 @@ img3 = PhotoImage(file="images/dots.png").subsample(3, 3)
 
 
 def text_steno():
-    """The text stenography function this includes both encoding and decoding"""
+    """The text steganography function this includes both encoding and decoding"""
     win = Toplevel(master=root, bg='#c0ed98')
     win.title('Text Steno')
     win.geometry('480x410')
     win.wm_iconbitmap('images/l2.ico')
-    win_label = Label(win, text='Text -Stenography', font=cas_big, bg='#c0ed98', fg='#1046b3')
+    win_label = Label(win, text='Text -Steganography', font=cas_big, bg='#c0ed98', fg='#1046b3')
     win_label.place(x=5, y=4)
 
     def encode():
@@ -195,7 +195,7 @@ def text_steno():
         dec.title('Text Steno-DECODE')
         dec.geometry('480x250')
         dec.wm_iconbitmap('images/l2.ico')
-        dec_label = Label(dec, text='Text -Stenography[DECODE]', font=cas_big, bg='#c0ed98', fg='#1046b3')
+        dec_label = Label(dec, text='Text -Steganography[DECODE]', font=cas_big, bg='#c0ed98', fg='#1046b3')
         dec_label.place(x=5, y=4)
         info_label = Label(dec, text='Select File:', font=cas, bg='#c0ed98', fg='#f20713')
         info_label.place(x=5, y=60)
@@ -344,16 +344,16 @@ def text_steno():
 
 
 def image_steno():
-    """Image stenography function"""
+    """Image steganography function"""
     img_win = Toplevel(master=root, bg='#edaa82')
     img_win.title('Image steno')
     img_win.geometry('515x260')
     img_win.wm_iconbitmap('images/l2.ico')
-    im_lb = Label(img_win, text='Image -Stenography', bg='#edaa82', fg='#fa05bd', font=cas_big)
+    im_lb = Label(img_win, text='Image -Steganography', bg='#edaa82', fg='#fa05bd', font=cas_big)
     im_lb.place(x=10, y=10)
 
     def em_img():
-        """Image stenography functions"""
+        """Image steganography functions"""
         global file, mess
         select_lb = Label(img_win, text='Select File:', font=cas, bg='#edaa82', fg='#fa05bd')
         select_lb.place(x=5, y=50)
@@ -434,7 +434,7 @@ def image_steno():
         ex_win.title('Image Steno-EXTRACT')
         ex_win.geometry('515x310')
         ex_win.wm_iconbitmap('images/l2.ico')
-        ex_lb = Label(ex_win, text='Image -Stenography[EXTRACT]', bg='#edaa82', fg='#fa05bd', font=cas_big)
+        ex_lb = Label(ex_win, text='Image -Steganography[EXTRACT]', bg='#edaa82', fg='#fa05bd', font=cas_big)
         ex_lb.place(x=10, y=10)
         file_lb = Label(ex_win, text='Select File:', font=cas, bg='#edaa82', fg='#fa0505')
         file_lb.place(x=5, y=50)
@@ -485,12 +485,12 @@ def image_steno():
 
 
 def audio_steno():
-    """Audio stenography functions"""
+    """Audio steganography functions"""
     aud_win = Toplevel(master=root, bg='#c3f0fa')
     aud_win.title('Audio Steno')
     aud_win.geometry('515x260')
     aud_win.wm_iconbitmap('images/l2.ico')
-    au_lb = Label(aud_win, text='Audio -Stenography', bg='#c3f0fa', fg='#fa05bd', font=cas_big)
+    au_lb = Label(aud_win, text='Audio -Steganography', bg='#c3f0fa', fg='#fa05bd', font=cas_big)
     au_lb.place(x=10, y=10)
 
     def em_aud():
@@ -574,7 +574,7 @@ def audio_steno():
         ex_win.title('Audio Steno-EXTRACT')
         ex_win.geometry('515x310')
         ex_win.wm_iconbitmap('images/l2.ico')
-        ex_lb = Label(ex_win, text='Audio -Stenography[EXTRACT]', bg='#c3f0fa', fg='#fa05bd', font=cas_big)
+        ex_lb = Label(ex_win, text='Audio -Steganography[EXTRACT]', bg='#c3f0fa', fg='#fa05bd', font=cas_big)
         ex_lb.place(x=10, y=10)
         file_lb = Label(ex_win, text='Select File:', font=cas, bg='#c3f0fa', fg='#fa0505')
         file_lb.place(x=5, y=50)
@@ -665,18 +665,18 @@ def password():
     ps.bind('<Return>', ok_done)
 
 
-lb = Label(root, text="Steno\n- Ultimate Stenography", font=('Showcard Gothic', 20), bg='#f5f59a', fg='#8507fa')
+lb = Label(root, text="Steno\n- Ultimate Steganography", font=('Showcard Gothic', 20), bg='#f5f59a', fg='#8507fa')
 lb.place(x=18, y=20)
 
-text = Button(root, text='Text\nStenography', relief='flat', bg='#A68064', command=text_steno, font=cas)
+text = Button(root, text='Text\nSteganography', relief='flat', bg='#A68064', command=text_steno, font=cas)
 text.place(x=56, y=250)
 ho.CreateToolTip(text, 'Click here\nto hide your\ndata in a text file')
 
-image = Button(root, text='Image\nStenography', relief='flat', bg='#A68064', command=image_steno, font=cas)
+image = Button(root, text='Image\nSteganography', relief='flat', bg='#A68064', command=image_steno, font=cas)
 image.place(x=156, y=250)
 ho.CreateToolTip(image, 'Click here\nto hide your\ndata in an image file')
 
-audio = Button(root, text='Audio\nStenography', relief='flat', bg='#A68064', command=audio_steno, font=cas)
+audio = Button(root, text='Audio\nSteganography', relief='flat', bg='#A68064', command=audio_steno, font=cas)
 audio.place(x=256, y=250)
 ho.CreateToolTip(audio, 'Click here\nto hide data in\n an audio file.')
 
