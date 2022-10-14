@@ -15,7 +15,15 @@ root = Tk()
 root.title('Steno')
 root.config(bg='#f5f59a')
 root.resizable(False, False)
-root.wm_iconbitmap('images/l2.ico')
+
+icon_filename = 'images/l2'
+
+if "nt" == os.name:
+    icon_filename = f"{icon_filename}.ico"
+else:
+    icon_filename = f"@{icon_filename}.xbm"
+
+root.wm_iconbitmap(icon_filename)
 
 # centering the main window
 root_h, root_w = 300, 400
