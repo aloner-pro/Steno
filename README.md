@@ -21,18 +21,30 @@ The do all steganography application.:grin:<br>
 ![homescreen](https://github.com/aloner-pro/Steno/blob/master/images/img.png?raw=true)
 
 Using those those _3 dots_ present in topright of the above window, user can create an account in case they forget the password for their repective hidden messages in files.
-## Run Locally
+[comment]: <> (This Instructions came from here https://github.com/Tortoise-Community/Tortoise-BOT/)
+## Installation Instruction
 
-Clone the project
-
-```bash
-  git clone https://github.com/aloner-pro/Steno.git
 ```
+# Your global Python installation needs to have pipenv
+pip install pipenv
 
-Go to the project directory
+# Clone the repo
+git clone https://github.com/aloner-pro/Steno
 
-```bash
-  cd Steno
+# Change directories into the project
+cd Steno
+
+# [developer only] If you are developer you need to install dependencies for dev
+pipenv install --dev
+
+# If you're not a developer just install required dependencies like this
+pipenv install
+
+# Activate the Pipenv shell (aka tell your terminal/whatever to use dependencies from the env in this project)
+pipenv shell
+
+# Start the program
+python -m main.py
 ```
 ## Other Notes
 All modules are standard modules of **batteries included** python. Then use the `main.py`. 
