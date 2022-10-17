@@ -21,7 +21,6 @@ The do all steganography application.:grin:<br>
 ![homescreen](https://github.com/aloner-pro/Steno/blob/master/images/img.png?raw=true)
 
 Using those those _3 dots_ present in topright of the above window, user can create an account in case they forget the password for their repective hidden messages in files.
-[comment]: <> (This Instructions came from here https://github.com/Tortoise-Community/Tortoise-BOT/)
 ## Installation Instruction
 
 ```
