@@ -2,7 +2,7 @@
 
 [![GitHub Super-Linter](https://github.com/aloner-pro/Steno/workflows/Lint%20Code%20Base/badge.svg)](https://github.com/marketplace/actions/super-linter)
 
-## Ultimate Steganography software:superhero
+## Ultimate Steganography software:superhero:
 
 The do all steganography application.:grin:<br>
 **Formats Supported-**
