@@ -13,7 +13,7 @@ The do all steganography application.:grin:<br>
 - ~~Video~~ _To be supported in future version_
 
 >This is an important application especially in today's world.<br>
-> We need hide the messages rather than only encrypting them.
+> We need to hide the messages rather than only encrypting them.
 
 ## Features
 
@@ -22,11 +22,22 @@ The do all steganography application.:grin:<br>
 (Click on the _3 dots_ in main window to know more)
 - Access info about any button just by hovering on it.
 
----
-
 ![homescreen](https://github.com/aloner-pro/Steno/blob/master/images/img.png?raw=true)
 
 Using those those _3 dots_ present in topright of the above window, user can create an account in case they forget the password for their repective hidden messages in files.
+
+## Other Notes
+
+All modules are standard modules of **batteries included** python. Then use the `main.py`.
+**Having `Cascadia Code` font makes the GUI look best.**
+Rest the GUI is quite explanatory so hope you don't have any problem using this.
+In audio steganography only `.wav` files are supported presently. In images are formats are supported.
+
+## Roadmap
+
+- Enabling encryption of data
+
+- Adding video support
 
 ## Installation Instruction
 
@@ -53,22 +64,7 @@ pipenv shell
 python -m main.py
 ```
 
-## Other Notes
-
-All modules are standard modules of **batteries included** python. Then use the `main.py`.
-**Having `Cascadia Code` font makes the GUI look best.**
-Rest the GUI is quite explanatory so hope you don't have any problem using this.
-In audio steganography only `.wav` files are supported presently. In images are formats are supported.
-
-## Roadmap
-
-- Enabling encryption of data
-
-- Add more video support
-
----
-
-## Steganography is not Cryptography ! :confused
+## Steganography is not Cryptography ! :confused:
 
 If you are getting confused between _Steganography_ & _Cryptography_. Then see this -
 
@@ -93,7 +89,6 @@ Generally at professional level the data hidden is encrypted first. So _steganog
 mutually exclusive to each other.
 >Knowledge fact: Jeff Bezos's mobile was hacked by hiding malicious code in a media
 >file which on getting downloaded sent the host device's control to the hacker.
----
 
 ## License
 
