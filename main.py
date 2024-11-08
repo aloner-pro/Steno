@@ -16,7 +16,9 @@ root.title('Steno')
 root.config(bg='#f5f59a')
 root.resizable(False, False)
 
-icon_filename = 'images/l2'
+# Get the directory where the script is located
+current_dir = os.path.dirname(os.path.abspath(__file__))
+icon_filename = os.path.join(current_dir, 'images', 'l2')
 
 if "nt" == os.name:
     icon_filename = f"{icon_filename}.ico"
@@ -36,9 +38,11 @@ root.geometry("{}x{}+{}+{}".format(root_w, root_h, x_coor, y_coor))
 # defining the fonts used and images
 cas = ('Cascadia Code', 10)
 cas_big = ('Cascadia Code', 20)
-img = PhotoImage(file="images/noshow.png").subsample(4, 4)
-img2 = PhotoImage(file="images/show.png").subsample(4, 4)
-img3 = PhotoImage(file="images/dots.png").subsample(3, 3)
+
+# Create absolute paths for images
+img = PhotoImage(file=os.path.join(current_dir, "images", "noshow.png")).subsample(4, 4)
+img2 = PhotoImage(file=os.path.join(current_dir, "images", "show.png")).subsample(4, 4)
+img3 = PhotoImage(file=os.path.join(current_dir, "images", "dots.png")).subsample(3, 3)
 
 
 def text_steno():
